@@ -1,0 +1,179 @@
+/* Definindo fonte global */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Corpo da página */
+body {
+  background-image: url("../images/bg-signin.jpg");
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Cabeçalho */
+header {
+  background-color: #343a40;
+  padding: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Garantir que ocupe toda a largura da tela */
+}
+
+nav .container {
+  display: flex;
+  justify-content: space-between; /* Nome "Page" à esquerda e o menu à direita */
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.navbar-brand {
+  color: #fff;
+  font-size: 26px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #be9b0e;
+}
+
+.navbar-links ul {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end; /* Alinha os itens do menu à direita */
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin-left: 30px;
+}
+
+.navbar-links li a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-links li a:hover {
+  color: #c7aa38;
+}
+
+.navbar-toggler {
+  display: none;
+}
+
+/* Seção de Início */
+section#inicio {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 80px 20px;
+  margin-top: 70px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Garante que o conteúdo fique centralizado */
+  min-height: 70vh; /* Garante que a seção ocupe uma boa parte da tela */
+}
+
+section#inicio h1 {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+section#inicio p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+section#inicio .btn {
+  background-color: #ffffff;
+  color: #8d4ab9;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-size: 18px;
+  margin: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+section#inicio .btn:hover {
+  background-color: #35567a;
+  color: rgb(255, 255, 255);
+  transform: translateY(-2px);
+}
+
+section#inicio p {
+  font-size: 18px;
+  margin: 20px 0;
+}
+
+/* Rodapé */
+footer {
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding: 20px 20px;
+  margin-top: auto;
+}
+
+footer p {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Responsividade - Mesmo estilo para desktop e mobile */
+@media (max-width: 768px) {
+  nav .container {
+    display: flex;
+    justify-content: space-between; /* Mantém a estrutura de lado a lado */
+    align-items: center;
+    width: 100%;
+  }
+
+  .navbar-links ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end; /* Menu à direita */
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar-links li {
+    margin-left: 30px;
+  }
+
+  section#inicio {
+    padding: 60px 20px;
+  }
+
+  section#inicio h1 {
+    font-size: 36px;
+  }
+
+  section#inicio p {
+    font-size: 16px;
+  }
+
+  footer {
+    padding: 15px 20px;
+  }
+}
