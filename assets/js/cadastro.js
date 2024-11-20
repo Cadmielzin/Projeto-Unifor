@@ -1,5 +1,5 @@
 async function cadastrar(event) {
-  event.preventDefault(); // Para não recarregar a página
+  event.preventDefault(); // Evita o reload da página
 
   const nome = document.getElementById("nome").value.trim();
   const usuario = document.getElementById("usuario").value.trim();
@@ -8,43 +8,46 @@ async function cadastrar(event) {
   const msgError = document.getElementById("msgError");
   const msgSuccess = document.getElementById("msgSuccess");
 
+  // Validações
   if (!nome || !usuario || !senha || !confirmSenha) {
     msgError.textContent = "Preencha todos os campos.";
     msgError.style.display = "block";
-    msgSuccess.style.display = "none";
     return;
   }
 
   if (senha !== confirmSenha) {
-    msgError.textContent = "As senhas não correspondem.";
+    msgError.textContent = "As senhas não coincidem.";
     msgError.style.display = "block";
-    msgSuccess.style.display = "none";
     return;
   }
 
-  // Enviar dados do formulário para o backend
+  // Envia os dados para o backend
   try {
-    const response = await axios.post('http://localhost:3000/register', {
-      username: usuario,
-      email: usuario + "@gmail.com", // ou pegar o e-mail do formulário
-      password: senha,
+    await axios.post('http://localhost:3000/register', {
+      name: nome,       // Envia como 'name' (correspondente ao backend)
+      username: usuario, // Envia como 'username'
+      password: senha,    // Envia como 'password'
     });
 
-    // Se o cadastro for bem-sucedido
+    // Mostra sucesso ao usuário
     msgSuccess.textContent = "Cadastro realizado com sucesso!";
     msgSuccess.style.display = "block";
     msgError.style.display = "none";
-
-    // Limpar campos do formulário após o sucesso
-    document.getElementById("nome").value = "";
-    document.getElementById("usuario").value = "";
-    document.getElementById("senha").value = "";
-    document.getElementById("confirmSenha").value = "";
   } catch (error) {
-    msgError.textContent = "Erro ao realizar o cadastro. Tente novamente.";
+    // Lida com erros do backend
+    msgError.textContent = error.response?.data || "Erro ao cadastrar. Tente novamente.";
     msgError.style.display = "block";
     msgSuccess.style.display = "none";
   }
 }
 
-document.getElementById("cadastroForm").addEventListener("submit", cadastrar);
+// Funcionalidade para exibir/ocultar senha
+document.getElementById('verSenha').addEventListener('click', () => {
+  const senhaInput = document.getElementById('senha');
+  senhaInput.type = senhaInput.type === 'password' ? 'text' : 'password';
+});
+
+document.getElementById('verConfirmSenha').addEventListener('click', () => {
+  const confirmSenhaInput = document.getElementById('confirmSenha');
+  confirmSenhaInput.type = confirmSenhaInput.type === 'password' ? 'text' : 'password';
+});

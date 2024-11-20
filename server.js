@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -21,14 +20,20 @@ const User = require('./models/user');
 
 // Rota de registro
 app.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, username, password } = req.body; // Mudança de 'email' para 'username'
+
+  // Verificar se o usuário já existe
+  const existingUser = await User.findOne({ username });
+  if (existingUser) {
+    return res.status(400).send('Usuário já registrado!');
+  }
 
   // Criptografar senha antes de salvar no banco
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = new User({
-    username,
-    email,
+    name,
+    username,  // Alterado para 'username'
     password: hashedPassword,
   });
 
@@ -39,10 +44,10 @@ app.post('/register', async (req, res) => {
 
 // Rota de login
 app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;  // Mudança de 'email' para 'username'
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });  // Mudança para 'username'
     if (!user) {
       return res.status(404).send('Usuário não encontrado!');
     }
