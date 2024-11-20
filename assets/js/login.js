@@ -1,24 +1,24 @@
-function entrar() {
-    const usuario = document.getElementById("usuario").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-    const msgError = document.getElementById("msgError");
-  
-    if (usuario === "" || senha === "") {
-      msgError.textContent = "Preencha todos os campos.";
-      msgError.style.display = "block";
-      return;
-    }
-  
-    if (usuario === "admin" && senha === "1234") {
-      alert("Login realizado com sucesso!");
-      window.location.href = "../../index.html";
-    } else {
-      msgError.textContent = "Usuário ou senha inválidos.";
-      msgError.style.display = "block";
-    }
+async function loginUser(event) {
+  event.preventDefault(); // Para não recarregar a página
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  try {
+    const response = await axios.post('http://localhost:3000/login', {
+      email,
+      password,
+    });
+
+    const token = response.data.token;
+    localStorage.setItem('authToken', token); // Armazenar o token no localStorage
+
+    alert('Login bem-sucedido!');
+    window.location.href = 'admin.html'; // Redirecionar para a página de admin
+  } catch (error) {
+    console.error('Erro no login:', error);
+    alert('Erro ao fazer login. Verifique suas credenciais.');
   }
-  
-  document.querySelector(".fa-eye").addEventListener("click", function () {
-    const senhaInput = document.getElementById("senha");
-    senhaInput.type = senhaInput.type === "password" ? "text" : "password";
-  });
+}
+
+document.getElementById('loginForm').addEventListener('submit', loginUser);
